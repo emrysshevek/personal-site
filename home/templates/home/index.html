@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Emrys Shevek's Website</title>
+    {% comment %} {% load static %}
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}"> {% endcomment %}
+  </head>
+  <body>
+    <h1>Welcome to Emrys Shevek's website!</h1>
+    <h3>Links:</h3>
+    <ul>
+      <li><a href="{% url 'chooser:index' %}">Chooser</a></li>
+    </ul>
+  </body>
+</html>
