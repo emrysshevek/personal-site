@@ -1,16 +1,13 @@
-<!doctype html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8" />
-    <title>Emrys Shevek's Website</title>
-    {% comment %} {% load static %}
-    <link rel="stylesheet" href="{% static 'polls/style.css' %}"> {% endcomment %}
-  </head>
-  <body>
-    <h1>Welcome to Emrys Shevek's website!</h1>
-    <h3>Links:</h3>
-    <ul>
-      <li><a href="{% url 'chooser:index' %}">Chooser</a></li>
-    </ul>
-  </body>
-</html>
+{% extends "home/base.html" %}
+{% block title %}Emrys Shevek's Website{% endblock %}
+
+{% block content %}
+<h1>Welcome to Emrys Shevek's website!</h1>
+<h3>Links:</h3>
+<ul>
+  <li><a href="{% url 'chooser:index' %}">Chooser</a></li>
+  <li><a href="https://www.fromdarkness.org">Photography</a></li>
+  <li><a href="https://eshevek.itch.io/">Games</a></li>
+  <li><a href="https://github.com/emrysshevek">Code</a></li>
+</ul>
+{% endblock %}
