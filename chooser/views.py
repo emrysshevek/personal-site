@@ -1,11 +1,13 @@
 from typing import Any
 
-from django.db.models.query import QuerySet
-from django.http import HttpResponse
+from django.db.models.query import F, QuerySet
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.views import generic
 
-from .models import Collection
+from .models import Choice, Collection, Item, Tournament, Player
+from .forms import TournamentForm
 
 
 class IndexView(generic.ListView):
@@ -13,27 +15,75 @@ class IndexView(generic.ListView):
   context_object_name = "collection_list"
   model = Collection
 
-  # def get_queryset(self) -> QuerySet[Any]:
-  #   """
-  #   Return all collections
-  #   """
-  #   return Collection.objects.all()
+
+# class DetailView(generic.DetailView):
+#   model = Collection
+#   template_name = "chooser/detail.html"
+
+
+def detail(request, collection_id) -> HttpResponse:
+
+  if request.method == "POST":
+    print(f"Creating tournament based on form data")
+    form = TournamentForm(request.POST)
+    if form.is_valid():
+      t = Tournament()
+      t.collection = Collection.objects.get(pk=collection_id)
+      t.num_players = form.cleaned_data["num_players"]
+      t.save()
+      for i in range(form.cleaned_data["num_players"]):
+        player = Player()
+        player.name = f"Player {i+1}"
+        player.tournament = t
+        player.turn_order = i
+        player.save()
+      return HttpResponseRedirect(reverse("chooser:run", args=(t.id,))) # type: ignore
+  else:
+    form = TournamentForm()
+
+  collection = Collection.objects.get(pk=collection_id)
+  return render(request, "chooser/detail.html", {"form": form, "collection": collection})
 
 
 
-class DetailView(generic.DetailView):
-  model = Collection
-  template_name = "chooser/detail.html"
-  # TODO: filter collections to return only ones created by current user
+def run(request, tournament_id) -> HttpResponse:
+  tournament =  get_object_or_404(Tournament, id=tournament_id)
+  options = tournament.get_options()
+  if len(options) == 1:
+    return HttpResponseRedirect(reverse("chooser:end", args=(options[0].id,)))
+  else:
+    return render(request, "chooser/run.html", {"tournament": tournament})
 
 
 
-def run(request, collection_id) -> HttpResponse:
-  collection = get_object_or_404(Collection, pk=collection_id)
+def choose(request, tournament_id) -> HttpResponse:
+  tournament = get_object_or_404(Tournament, pk=tournament_id)
+  try:
+    selected_item = tournament.collection.item_set.get(pk=request.POST["item"]) # type: ignore
+  except:
+    # Redisplay the item selection form
+    return render(
+      request,
+      "chooser/run.html",
+      {
+        "tournament": tournament,
+        "error_message": "You didn't select a item"
+      },
+    )
   
-  return HttpResponse("future run page")
+  Choice(
+    item=selected_item,
+    player=tournament.get_current_player(),
+    vetoed=True,
+  ).save()
 
+  tournament.turn = (F("turn") + 1) % tournament.num_players
+  tournament.save()
 
+  return HttpResponseRedirect(
+    reverse("chooser:run", args=(tournament.id,)) # type: ignore
+  )
 
-def choose(request, collection_id, tournament_id) -> HttpResponse:
-  return HttpResponse("future choose page")
+def end(request, item_id):
+  item = get_object_or_404(Item, pk=item_id)
+  return render(request, "chooser/end.html", {"item": item})
