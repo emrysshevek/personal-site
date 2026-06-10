@@ -1,8 +1,14 @@
-body, a, .navbar-dark {
-  background-color: black;
+body, a {
   color: white;
+  background-color: black;
+  font-family: serif;
+  font-size: large;
 }
 
-a:hover {
+.nav-link, a:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.nav-link:focus, .nav-link:hover, .navbar-brand:hover {
   color: white;
 }
