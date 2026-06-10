@@ -1,0 +1,31 @@
+<div class="container">
+  <nav class="navbar">
+
+    {# Main Header Title #}
+    <div class="container-fluid justify-content-center">
+      <a class="navbar-brand fs-1" href="/" id="nav-title">From Darkness</a>
+      {# Home link. Can change to include image #}
+    </div>
+
+    {# Links #}
+    <div class="container-fluid justify-content-center">
+      <nav class="nav">
+        <a class="nav-link" role="button" target="_blank" href="https://www.fromdarkness.org">Photography</a>
+        <a class="nav-link" role="button" target="_blank" href="https://eshevek.itch.io/">Game Dev</a>
+        <a class="nav-link" role="button" target="_blank" href="https://github.com/emrysshevek">Code</a>
+
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Bonus
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'chooser:index' %}">Chooser</a></li>
+          </ul>
+        <div> 
+
+      </nav>
+    </div>
+
+  </nav>
+
+</div>
