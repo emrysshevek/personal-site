@@ -3,14 +3,16 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{% endblock %}</title>
+  {% load static %}
+
   {% load bootstrap5 %}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
-
-  {% load static %}
   <link rel="stylesheet" href="{% static 'home/style.css' %}?{% now 'U' %}">
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
+
 <body class="text-white">
   
   {% include 'home/navbar.html' %}

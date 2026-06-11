@@ -1,4 +1,4 @@
-body, a {
+body, a, .navbar, .dropdown-menu{
   color: white;
   background-color: black;
   font-family: serif;
@@ -15,4 +15,8 @@ body, a {
 
 #nav-title {
   font-size: 64px !important;
+}
+
+.fade-in {
+  visibility: hidden;
 }
