@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-us0)=l0=-_jz+l%!pr)_4#=-^(4&si87lkj1uiphnoy($guri&
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '3.149.225.145'
+    '3.149.225.145',
+    '127.0.0.1',
 ]
 
 

@@ -15,14 +15,15 @@
     <div class="container-fluid justify-content-center">
       <nav class="nav">
 
-        <a class="nav-link fade-in" role="button" target="_blank" href="https://www.fromdarkness.org">Photography</a>
-        <a class="nav-link fade-in" role="button" target="_blank" href="https://eshevek.itch.io/">Game Dev</a>
-        <a class="nav-link fade-in" role="button" target="_blank" href="https://github.com/emrysshevek">Code</a>
+        <a class="nav-link fade-in" role="button" href="{% url 'home:index' %}" active="true">Home</a>
+        <a class="nav-link fade-in" role="button" href="{% url 'home:about' %}">About</a>
 
         <div class="nav-item dropdown" >
-          <a class="nav-link dropdown-toggle fade-in" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Bonus</a>
+          <a class="nav-link dropdown-toggle fade-in" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Projects</a>
           <ul class="dropdown-menu">
-            <li><a href="{% url 'chooser:index' %}">Chooser</a></li>
+            <li><a role="button" target="_blank" href="https://www.fromdarkness.org">Photography</a></li>
+            <li><a role="button" target="_blank" href="https://eshevek.itch.io/">Game Dev</a></li>
+            <li><a role="button" target="_blank" href="https://eshevek.itch.io/">Code</a></li>
           </ul>
         <div>
 

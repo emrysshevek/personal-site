@@ -3,12 +3,29 @@
 
 
 {% block content %}
-<h1 class="text-center">Welcome to Emrys Shevek's website!</h1>
-<h3>Links:</h3>
-<ul>
-  <li><a href="{% url 'chooser:index' %}">Chooser</a></li>
-  <li><a href="https://www.fromdarkness.org">Photography</a></li>
-  <li><a href="https://eshevek.itch.io/">Games</a></li>
-  <li><a href="https://github.com/emrysshevek">Code</a></li>
-</ul>
+<div id="projectsamplescarousel" class="carousel slide" data-bs-ride="false">
+  <div class="carousel-inner">
+    {% for sample in samples %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <a role="button" target="_blank" href="{{ sample.project.url }}">
+          <img src="{{ sample.url }}" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>{{ sample.project.name }}</h5>
+            <p>{{ sample.descripton }}</p>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#projectsamplescarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#projectsamplescarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
 {% endblock %}
