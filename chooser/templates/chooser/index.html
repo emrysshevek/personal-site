@@ -1,13 +1,59 @@
 {% extends "home/base.html" %}
-{% block title %}Chooser{% endblock %}
+{% block title %}From Darkness - Chooser{% endblock %}
+
 {% block content %}
-  {% if collection_list %}
-    <ul>
-      {% for collection in collection_list %}
-        <li><a href="{% url 'chooser:detail' collection.id %}" >{{ collection.name }}</a></li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No collections are available.</p>
-  {% endif %}
+
+  {% load static %}
+  <script type="text/javascript" src="{% static 'chooser/chooser.js' %}"></script>
+
+  <div class="container-fluid">
+    {# Headline #}
+    <div class="row">
+      <div class="col text-center">
+        <h4><strong>Chooser:</strong> "Just make a goddamn decision already!"</h4>
+      </div>
+    </div>
+
+    <br>
+
+    {% with selection=-1 %}
+    {# Collection selector/editor #}
+    <div class="row h-100">
+      {# List of available Collections#}
+      <div class="col-3 h-100">
+        <h3>Collections</h3>
+          <div class="list-group list-group-flush">
+            {% for collection in collection_list %}
+              <button type="button" class="list-group-item list-group-item-action" onclick="select_collection({{ forloop.counter0 }})">{{ collection.name }}</button>
+            {% endfor %}
+          </div>
+          <button class="btn btn-outline-light justify-content-center" type="button" onclick="">Add Collection</button>
+      </div>
+
+      {# Collection Details #}
+      <div class="col border-start">
+        {% if collection_list|length == 0 %}
+        <div class="container-fluid h-100 text-center align-middle"><p>Add a collection...</p></div>
+        {% else %}
+          <div id="select_err" class="container-fluid h-100 text-center align-middle"><p>Select a collection...</p></div>
+          
+          {% for collection in collection_list %}
+            <div style="display:none;" class="row collection-details" id="{{ forloop.counter0 }}">
+              <div class="row">
+                {% for item in collection.item_set.all %}
+                  <div class="col-md-auto">{{ item.value }}</div>
+                {% endfor %}
+              </div>
+              <div class="row">
+                <a role="button" class="btn-outline-light justify-content-center" href="{% url 'chooser:detail' collection.id %}">Run</a>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    {% endwith %}
+
+  </div>
+
 {% endblock %}

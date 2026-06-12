@@ -1,4 +1,4 @@
-body, a, .navbar, .dropdown-menu{
+body, a, .navbar, .dropdown-menu, .list-group, .list-group-item, .btn{
   color: white;
   background-color: black;
   font-family: serif;
