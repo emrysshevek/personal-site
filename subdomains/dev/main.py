@@ -9,7 +9,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "root"}
+    return {"message": "welcome to the root"}
 
 
 @app.post("/git-webhook")
@@ -22,7 +22,7 @@ async def git_webhook(x_github_event: Annotated[str, Header()], request: Request
     if x_github_event == "push":
         body = await request.json()
         response["branch"] = body["ref"]
-        
+
         if body["ref"] == "refs/heads/production":
             instance = subprocess.run(["git", "pull"])
             if instance.returncode == 0:
