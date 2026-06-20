@@ -33,6 +33,9 @@ ALLOWED_HOSTS = [
     'localhost',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://emrysshevek.com',
+]
 
 # Application definition
 
