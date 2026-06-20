@@ -62,8 +62,83 @@ server {
 }
 . . .
 ```
-9. Start it up!
+8. Start it up!
 ```
 sudo nginx
 gunicorn personalsite.wsgi
 ```
+
+# Setting up S3 connection
+Django comes with a FileField (and ImageField subclass) along with the Storage class which make it fairly easy to save files/images to remote servers instead of the local filesystem. To hook it up to an Amazon S3 bucket, we first need to make a bucket, give our EC2 instance permissions to use the bucket, and make a custom Storage class that saves files to the bucket instead of the default behaviour. Even easier, we can use `django-storages` to do the heavy lifting of creating most of that custom storage class for us.
+
+## Set up S3 Bucket
+Under Amazon S3/Buckets go to 'Create Bucket'. Give your bucket a name (use Account Regional namespace if needed) and uncheck "Block all public access" to allow public access to the objects in the bucket. This is only necessary if you are planning to use the contents of the bucket as static files for your website (eg .js/.css files, images, etc).
+
+## Create an EC2 Instance Role
+Go to IAM/Roles and click "Create Role". 
+
+For "trusted entity type" select AWS service and under the "Use Case" dropdown select EC2 as the service and use case. 
+
+Give it the "AmazonS3FullAccess" permission.
+
+## Modify EC2 Instance
+Navigate to you EC2 instance and then go to Actions/Security/Modify IAM Role.
+
+In the dropdown, select the Role you just created.
+
+Back on the instance overview page, go to Actions/Instance Settings/Modify instance metadata options. Make sure 'Instance metadata service' is enabled, 'IMDSv2' is required, and set 'HTTP PUT response hop limit' to 2 (since we are using our nginx proxy).
+
+## Modify Django Storage
+Install django-storages for S3
+```
+pip install django-storages[s3]
+```
+
+Modify settings to allow django-storages //TODO FINISH SUMMARY
+
+Normally we could just use django-storages as-is, but the id/key provided to our EC2 instance is changed about once an hour so we have to make sure our storage stays updated.
+In a new file, create a class which inherits django-storages S3Storage
+```(python)
+import json
+import os
+from urllib.request import urlopen, Request
+
+from storages.backends.s3 import S3Storage
+from botocore import exceptions
+
+
+class CustomS3Storage(S3Storage):
+
+    def __init__(self, **settings):
+        super().__init__(**settings)
+
+    def _save(self, name, content):
+        try:
+            return super()._save(name, content)
+        except exceptions.ClientError as error:
+            self.update_credentials()
+            
+        return super()._save(name, content)
+
+    
+    def update_credentials(self):
+        
+        req = Request(
+            url="http://169.254.169.254/latest/api/token",
+            headers={"X-aws-ec2-metadata-token-ttl-seconds": "21600"},
+            method="PUT",
+        )
+        token = urlopen(req).read().decode()
+
+        req = Request(
+            url="http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance",
+            headers={"X-aws-ec2-metadata-token": token},
+            method="GET",
+        )
+        res = json.loads(urlopen(req).read().decode())
+
+        os.environ["AWS_ACCESS_KEY_ID"] = res["AccessKeyId"]
+        os.environ["AWS_SECRET_ACCESS_KEY"] = res["SecretAccessKey"]
+```
+
+
