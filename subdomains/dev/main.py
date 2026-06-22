@@ -1,3 +1,4 @@
+import json
 import subprocess
 from typing import Annotated
 
@@ -9,7 +10,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "welcome to the root"}
+    return {"message": "welcome to the root...AGAIN AGAIN FINAL"}
 
 
 @app.post("/git-webhook")
@@ -27,10 +28,10 @@ async def git_webhook(x_github_event: Annotated[str, Header()], request: Request
             instance = subprocess.run(["git", "pull"])
             if instance.returncode == 0:
                 response["message"] = "success"
-                return Response(content=response)
+                return Response(content=json.dumps(response))
             else:
                 response["message"] = str(instance.stderr)
-                return Response(content=response, status_code=500)
+                return Response(content=json.dumps(response), status_code=500)
         response["message"] = "Ignored non-production branch push"
 
-    return Response(content=response)
+    return Response(content=json.dumps(response))
