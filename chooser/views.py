@@ -30,6 +30,9 @@ def detail(request, collection_id) -> HttpResponse:
       t = Tournament()
       t.collection = Collection.objects.get(pk=collection_id)
       t.num_players = form.cleaned_data["num_players"]
+      t.method = form.cleaned_data["method"]
+      t.weighting = form.cleaned_data["weighting"]
+      t.strength = form.cleaned_data["weight_strength"]
       t.save()
       for i in range(form.cleaned_data["num_players"]):
         player = Player()
@@ -58,6 +61,13 @@ def run(request, tournament_id) -> HttpResponse:
 
 def choose(request, tournament_id) -> HttpResponse:
   tournament = get_object_or_404(Tournament, pk=tournament_id)
+  if 'pass' in request.POST:
+    tournament.turn = (F("turn") + 1) % tournament.num_players
+    tournament.save()
+    return HttpResponseRedirect(
+      reverse("chooser:run", args=(tournament.id,)) # type: ignore
+    )
+
   try:
     selected_item = tournament.collection.item_set.get(pk=request.POST["item"]) # type: ignore
   except:
@@ -74,7 +84,7 @@ def choose(request, tournament_id) -> HttpResponse:
   Choice(
     item=selected_item,
     player=tournament.get_current_player(),
-    vetoed=True,
+    vetoed='eliminate' in request.POST,
   ).save()
 
   tournament.turn = (F("turn") + 1) % tournament.num_players

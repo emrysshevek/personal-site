@@ -1,11 +1,9 @@
 import json
 import os
-from time import time
+from urllib.request import urlopen, Request
 
 from storages.backends.s3 import S3Storage
-import boto3
 from botocore import exceptions
-from urllib.request import urlopen, Request
 
 
 
@@ -38,7 +36,9 @@ class CustomS3Storage(S3Storage):
             method="POST",
         )
         res = urlopen(req)
-        token = res.read()
+        token = res.read().decode()
+
+        print(token)
 
         req = Request(
             url="http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance",
@@ -49,5 +49,3 @@ class CustomS3Storage(S3Storage):
 
         os.environ["AWS_ACCESS_KEY_ID"] = res["AccessKeyId"]
         os.environ["AWS_SECRET_ACCESS_KEY"] = res["SecretAccessKey"]
-
-        self._last_updated = time()

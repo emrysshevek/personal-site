@@ -12,6 +12,8 @@
         <label for="item{{ forloop.counter }}">{{ item.value }}</label><br>
       {% endfor %}
     </fieldset>
-    <input type="submit" value="Veto">
+    <input type="submit" name="chose" value="Choose">
+    <input type="submit" name="eliminate" value="Eliminate">
+    <input type="submit" name="pass" value="Pass">
   </form>
 {% endblock %}

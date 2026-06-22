@@ -18,20 +18,32 @@
 
     {% with selection=-1 %}
     {# Collection selector/editor #}
-    <div class="row h-100">
+    <div class="row h-100 text-center">
       {# List of available Collections#}
-      <div class="col-3 h-100">
-        <h3>Collections</h3>
-          <div class="list-group list-group-flush">
-            {% for collection in collection_list %}
-              <button type="button" class="list-group-item list-group-item-action" onclick="select_collection({{ forloop.counter0 }})">{{ collection.name }}</button>
-            {% endfor %}
+      <div class="col-sm-3 h-100 a">
+        <div class="accordian accordian-flush" id="accordianExample">
+          <div class="accordian-item">
+            <h3 class="accordian-header">
+              <button class="accordian-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Collections
+              </button>
+            </h3>
+            <div id="collapseOne" class="accordian-collapse collapse show" data-bs-parent="#accordianExample">
+              <div class="accordian-body">
+                <div class="list-group list-group-flush">
+                  {% for collection in collection_list %}
+                    <button type="button" class="list-group-item list-group-item-action" onclick="select_collection({{ forloop.counter0 }})">{{ collection.name }}</button>
+                  {% endfor %}
+                </div>
+                <button class="btn btn-outline-light justify-content-center" type="button" onclick="">Add Collection</button>
+              </div>
+            </div>
           </div>
-          <button class="btn btn-outline-light justify-content-center" type="button" onclick="">Add Collection</button>
+        </div>
       </div>
 
       {# Collection Details #}
-      <div class="col border-start">
+      <div class="col">
         {% if collection_list|length == 0 %}
         <div class="container-fluid h-100 text-center align-middle"><p>Add a collection...</p></div>
         {% else %}
@@ -45,7 +57,7 @@
                 {% endfor %}
               </div>
               <div class="row justify-content-center">
-                <div class="col-md-auto"><a role="button" class="btnbtn-outline-light" href="{% url 'chooser:detail' collection.id %}">Run</a></div>
+                <div class="col-md-auto"><a role="button" class="btn btn-outline-light" href="{% url 'chooser:detail' collection.id %}">Run</a></div>
               </div>
             </div>
           {% endfor %}

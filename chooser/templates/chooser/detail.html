@@ -5,11 +5,6 @@
   <h1>{{ collection.name }}</h1>
 
   {% if collection.item_set.all %}
-    <ul>
-      {% for item in collection.item_set.all %}
-        <li>{{ item }}</li>
-      {% endfor %}
-    </ul>
     
     <form action="{% url 'chooser:detail' collection.id %}" method="post">
       {% csrf_token %}
