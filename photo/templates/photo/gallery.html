@@ -9,7 +9,7 @@
         {% for photo in photos %}
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ s3_url + photo.image.url }}" class="card-img-top">
+                    <img src="{{ s3_url }}{{ photo.image.url }}" class="card-img-top">
                     <p>{{ photo.image.url }}</p>
                     <p>{{ photo.image.path }}</p>
                 </div>
