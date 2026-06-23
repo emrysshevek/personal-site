@@ -17,6 +17,7 @@ class CustomS3Storage(S3Storage):
         super().__init__(**settings)
 
     def _save(self, name, content):
+        print("saving file")
         try:
             return super()._save(name, content)
         except exceptions.ClientError as error:
