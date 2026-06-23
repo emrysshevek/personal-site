@@ -5,13 +5,11 @@
 {% block content %}
 
 <div class="container-fluid">
-    <div class="row" data-masonry='{"percentPosition": true }'>
+    <div class="row" data-masonry="{"percentPosition": true }">
         {% for photo in photos %}
             <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ s3_url }}{{ photo.image.url }}" class="card-img-top">
-                    <p>{{ s3_url }}{{ photo.image.url }}</p>
-                    <p>{{ photo.image.path }}</p>
+                <div class="card">
+			<img src="{{ photo.image.url }}" class="card-img-top">
                 </div>
             </div> 
         {% endfor %}
