@@ -16,14 +16,17 @@
 </head>
 
 <body class="text-white">
-  
-  {% include 'home/navbar.html' %}
+  {% load dict_filters %}
+  {% url 'photo:index' as projects_url %}
+  {% url 'photo:gallery' as gallery_url %}
+  {% include 'home/navbar.html' with title="From Darkness" navs='{"Projects":"'|add:projects_url|add:'", "Gallery":"'|add:gallery_url|add:'"}'|to_dict %}
 
   <div class="container-fluid">
     {% for project in projects %}
     <div class="row mb-4">
         <div class="col">
             {% with photo=project.photo_set.all|random %}
+            <a href="{% url 'photo:project' project.id %}" >
             <card class="project btn btn-dark card bg-transparent overflow-hidden align-items-center" style="height: 400px; background-image: url({{ photo.image.url }})">
                 <div class="card-img-overlay container-fluid">
                     <div class="row h-100 text-center align-items-center">

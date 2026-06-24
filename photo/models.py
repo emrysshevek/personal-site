@@ -17,7 +17,8 @@ class PhotoProject(models.Model):
 class Photo(models.Model):
   title = models.CharField(max_length=100, blank=True, unique=True, null=True)
   description = models.CharField(max_length=500, blank=True)
-  image = models.ImageField(upload_to="photos/", storage=CustomS3Storage())
+  # image = models.ImageField(upload_to="photos/", storage=CustomS3Storage())
+  image = models.ImageField(upload_to="photos/")
   project = models.ForeignKey(PhotoProject, on_delete=models.DO_NOTHING, blank=True, null=True)
 
   def __str__(self) -> str:
