@@ -1,10 +1,28 @@
 from django.shortcuts import render
+from django.views import generic
 
-from photo.models import Photo
+from photo.models import Photo, PhotoProject
 
-S3URL = "https://personal-bucket-058109276355-us-west-1-an.s3.us-west-1.amazonaws.com"
 
-# Create your views here.
-def gallery(request):
-  photos = Photo.objects.all()
-  return render(request, "photo/gallery.html", {"photos": photos, "s3_url": S3URL})
+class IndexView(generic.ListView):
+  template_name = "photo/index.html"
+  context_object_name = "projects"
+  model = PhotoProject
+  
+
+class GalleryView(generic.ListView):
+  template_name = "photo/gallery.html"
+  context_object_name = "photos"
+  model = Photo
+
+
+class ProjectView(generic.DetailView):
+  template_name = "photo/project.html"
+  context_object_name = "project"
+
+  
+
+  
+# def gallery(request):
+#   photos = Photo.objects.all()
+#   return render(request, "photo/gallery.html", {"photos": photos})
