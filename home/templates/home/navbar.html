@@ -8,16 +8,16 @@
     {# Main Header Title #}
     <div class="container-fluid justify-content-center">
       {# Home link. Can change to include image #}
-      <a class="navbar-brand fs-1 fade-in" href="/" id="nav-title">From Darkness</a>
+      <a class="navbar-brand fs-1 fade-in" href="/" id="nav-title">{{ title }}</a>
     </div>
 
     {# Links #}
     <div class="container-fluid justify-content-center">
       <nav class="nav">
-
-        <a class="nav-link fade-in" role="button" href="{% url 'home:index' %}" active="true">Home</a>
-        <a class="nav-link fade-in" role="button" href="{% url 'home:about' %}">About</a>
-
+        {% for name, url in tabs.items %}
+          <a class="nav-link fade-in" role="button" href={{ url }} active="true">{{ name}}</a>
+        {% endfor %}
+        
         <div class="nav-item dropdown" >
           <a class="nav-link dropdown-toggle fade-in" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Projects</a>
           <ul class="dropdown-menu">

@@ -14,9 +14,8 @@
 </head>
 
 <body class="text-white">
-  {% url 'home:index' as home_url %}
-  {% url 'home:about' as about_url %}
-  {% include 'home/navbar.html' with title="From Darkness" tabs= %}
+  
+  {% include 'home/navbar.html' %}
 
   <div class="container-fluid">
     <div class="row">
