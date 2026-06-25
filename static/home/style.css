@@ -1,0 +1,22 @@
+body, a, .navbar, .dropdown-menu, .list-group, .list-group-item, .btn{
+  color: white;
+  background-color: black;
+  font-family: serif;
+  font-size: large;
+}
+
+.nav-link, a:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.nav-link:focus, .nav-link:hover, .navbar-brand:hover {
+  color: white;
+}
+
+#nav-title {
+  font-size: 64px !important;
+}
+
+.fade-in {
+  visibility: hidden;
+}
