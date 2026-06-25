@@ -14,10 +14,10 @@
 </head>
 
 <body class="text-white">
-  {% url 'home:index' as home_url %}
-  {% url 'home:about' as about_url %}
   {% load dict_filters %}
-  {% include 'home/navbar.html' with title="From Darkness" navs='{"Home": "{{ home_url }}", "About": "{{ about_url }}"}'|to_dict %}
+  {% url 'photo:index' as projects_url %}
+  {% url 'photo:gallery' as gallery_url %}
+  {% include 'home/navbar.html' with title="From Darkness" navs='{"Projects":"'|add:projects_url|add:'", "Gallery":"'|add:gallery_url|add:'"}'|to_dict %}
 
   <div class="container-fluid">
     <div class="row">

@@ -12,9 +12,8 @@ class CustomS3Storage(S3Storage):
 
     bucket_name = "personal-bucket-058109276355-us-west-1-an"
     location = "personal-site/"
-
-    def __init__(self, **settings):
-        super().__init__(**settings)
+    default_acl = "public-read"
+    querystring_auth = False
 
     def _save(self, name, content):
         print("saving file")

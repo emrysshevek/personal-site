@@ -19,6 +19,13 @@ class GalleryView(generic.ListView):
 class ProjectView(generic.DetailView):
   template_name = "photo/project.html"
   context_object_name = "project"
+  model = PhotoProject
+
+
+class PhotoView(generic.DetailView):
+  template_name = "photo/photo.html"
+  context_object_name = "photo"
+  model = Photo
 
   
 
