@@ -17,7 +17,7 @@
   {% url 'home:index' as home_url %}
   {% url 'home:about' as about_url %}
   {% load dict_filters %}
-  {% include 'home/navbar.html' with title="From Darkness" navs='{"Home": "{{ home_url }}", "About": "{{ about_url }}"}'|to_dict %}
+  {% include 'home/navbar.html' with title="From Darkness" navs='{"Home":"'|add:home_url|add:'", "About":"'|add:about_url|add:'"}'|to_dict %}
 
   <div class="container-fluid">
     <div class="row">

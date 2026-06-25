@@ -1,0 +1,8 @@
+.project {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% auto;
+    background-position: top 0px left 0px;
+
+    transition: background-size .5s, background-position .5s;
+}
