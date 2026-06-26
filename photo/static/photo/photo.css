@@ -6,3 +6,7 @@
 
     transition: background-size .5s, background-position .5s;
 }
+
+.project-text {
+    transition: text-shadow .5s;
+}

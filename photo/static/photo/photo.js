@@ -11,10 +11,13 @@ $(document).ready(function(){
         $(elem).on("mouseenter", function() {
             $(elem).css("background-size", "105% auto")
             $(elem).css("background-position", "top -20px left -20px")
+            let text = $(".project-text")
+            $(elem).find(text).css("text-shadow", "2px 2px 2px black")
         }).on("mouseleave", function() {
             $(elem).css("background-size", "100% auto")
-            
             $(elem).css("background-position", "top 0px left 0px")
+            let text = $(".project-text")
+            $(elem).find($(text)).css("text-shadow", "5px 5px 5px black")
         })
         
     })
