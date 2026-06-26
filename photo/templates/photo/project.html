@@ -10,7 +10,7 @@
         {% for photo in project.photo_set.all %}
             <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
                 <div class="card">
-                    <a href="{% url 'photo:photo' photo.id %}">
+                    <a href="{% url 'photo:photo' project.id photo.id %}">
     			        <img src="{{ photo.image.url }}" class="card-img-top">
                     </a>
                 </div>

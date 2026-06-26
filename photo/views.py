@@ -40,6 +40,8 @@ def photo_detail(request, photo_id, project_id=-1):
   context = {
     "photo": photo,
     "url_root":  os.path.normpath(os.path.join(request.path, "../")),
+    "show_next": next is not None,
+    "show_prev": prev is not None,
     "next": next,
     "prev": prev,
   }
