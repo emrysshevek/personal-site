@@ -11,8 +11,8 @@
   <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <link rel="stylesheet" href="{% static 'home/style.css' %}">
-  <link rel="stylesheet" href="{% static 'photo/photo.css' %}">
-  <script type="text/javascript" src="{% static 'photo/photo.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'photo/photo.css' %}?version={% now 's' %}">
+  <script type="text/javascript" src="{% static 'photo/photo.js' %}?version={% now 's' %}"></script>
 </head>
 
 <body class="text-white">
@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-lg-2 col-md-1 col-sm-12" style="height: 100%"></div>
                         <div class="col-lg-5 col-md-5 col-sm-12">
-                            <p style="text-shadow: 2px 2px 2px black">{{ project.summary }}</p>
+                            <p class="project-text" style="text-shadow: 5px 5px 5px black">{{ project.summary }}</p>
                         </div>
                     </div>
                     <a href="{% url 'photo:project' project.id %}" class="stretched-link"></a>

@@ -6,9 +6,10 @@ register = template.Library()
 
 @register.filter(name='to_dict')
 def to_dict(value):
-    print(json.loads(value))
     """Converts a string into a Python dictionary."""
     try:
         return json.loads(value)
-    except (ValueError, TypeError):
+    except (ValueError, TypeError) as e:
+        print(e)
+        print(value)
         return {} # Return empty dict if parsing fails
