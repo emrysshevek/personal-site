@@ -11,8 +11,8 @@
   <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <link rel="stylesheet" href="{% static 'home/style.css' %}">
-  <link rel="stylesheet" href="{% static 'photo/photo.css' %}">
-  <script type="text/javascript" src="{% static 'photo/photo.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'photo/photo.css' %}?version={% now 's' %}">
+  <script type="text/javascript" src="{% static 'photo/photo.js' %}?version={% now 's' %}"></script>
 </head>
 
 <body class="text-white">
@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-lg-2 col-md-1 col-sm-12" style="height: 100%"></div>
                         <div class="col-lg-5 col-md-5 col-sm-12">
-                            <p style="text-shadow: 2px 2px 2px black">{{ project.summary }}</p>
+                            <p class="project-text" style="text-shadow: 5px 5px 5px black">{{ project.summary }}</p>
                         </div>
                     </div>
                     <a href="{% url 'photo:project' project.id %}" class="stretched-link"></a>
@@ -46,7 +46,22 @@
         </div>
     </div>
     {% endfor %}
-  </div>
+    <div class="row h-25"></div>
 
+    <div class="row text-center">
+        <div class="col">
+            <h1 class="display-3 pt-5">About the Artist</h1>
+        </div>
+    </div>
+    <div class="row text-center pt-5">
+        <div class="col">
+            <img src="https://images.squarespace-cdn.com/content/v1/69ba4c61839b2870b2854aa4/ee9cc4eb-b0b3-41a7-b9cd-eede75e4db83/NK7A3884.jpg?format=500w">
+        </div>
+    </div>
+    <div class="row text-justify pt-5">
+        <div class="col-6 m-auto"><p>Emrys Shevek is an emerging film photographer and darkroom printer based in Sacramento, California. Her first encounter with film came in early 2024 after over a decade studying and working in software engineering, and the contrast of the physicality and immediacy of film with the digital world she had inhabited caused her to immediately fall in love with the medium. She enjoys photography as a means of facilitating a reciprocal relationship with the world: the artist is made to more closely observe and appreciate the beauty of the world while also able to super-impose their own on artistic vision on top of it.</p></div>
+    </div>
+
+  </div>
 </body>
 </html>

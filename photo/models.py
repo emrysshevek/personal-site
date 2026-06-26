@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.files.storage import FileSystemStorage
 
-from personalsite import settings
-from personalsite.storages import CustomS3Storage
+from core import settings
+from core.storages import CustomS3Storage
 
 
 class PhotoProject(models.Model):

@@ -1,0 +1,43 @@
+{% load static %}
+<script type="text/css" src="{% static 'photo/photo.css' %}?version={% now 's' %}"></script>
+<script src="{% static 'photo/photo_modal.js' %}?version={% now 's' %}"></script>
+
+<!-- Modal -->
+<div class="modal fade " id="photoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen ">
+        <div class="modal-content bg-black text-white">
+
+            <div class="modal-header" data-bs-theme="dark">
+                <h1 class="modal-title fs-5" id="modalLabel"></h1>
+                <button type="button" class="btn btn-dark" data-bs-theme="dark" data-bs-dismiss="modal" aria-label="Close">Close</button>
+            </div>
+
+            <div class="modal-body">
+                {% for photo in photos %}
+                    <img hidden class="img-fluid modal-photo" id="modalPhoto{{ forloop.counter0 }}" title="{{ photo.title }}" style="max-width: 100%; max-height: 100%; margin: auto; display: block;" src={{ photo.image.url }}>
+                {% endfor %}
+
+                {% comment %} Left Arrow Button {% endcomment %}
+                <div class="vh-100 w-25 position-absolute start-0 top-0 d-flex align-items-center modal-nav-div" style="background: #000000; background: linear-gradient(90deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);">
+                    <div class="position-relative" id="rightArrow" style="left: 25%">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-caret-left" viewBox="0 0 16 16">
+                            <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753"/>
+                        </svg>
+                        <a class="stretched-link modal-nav-button" direction="prev" role="button" onclick="changePhoto('prev')"></a>
+                    </div>
+                </div>
+
+                {% comment %} Right arrow button {% endcomment %}
+                <div class="vh-100 w-25 position-absolute end-0 top-0 d-flex align-items-center modal-nav-div" style="background: #000000; background: linear-gradient(270deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);">
+                    <div class="position-relative" id="rightArrow" style="left: 75%">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-caret-right" viewBox="0 0 16 16">
+                            <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
+                        </svg>
+                        <a class="stretched-link modal-nav-button" direction="next" onclick="changePhoto('next')" role="button"></a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div> 
