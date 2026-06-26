@@ -1,0 +1,39 @@
+{% load static %}
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %}</title>
+  {% load static %}
+
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="{% static 'home/style.css' %}">
+  <link rel="stylesheet" href="{% static 'photo/photo.css' %}">
+  <script type="text/javascript" src="{% static 'photo/photo.js' %}"></script>
+</head>
+
+<body class="text-white container-fluid">
+    <img  class="img-fluid" style="max-width: 100%; max-height: 100%; margin: auto; display: block;" src={{ photo.image.url }}>
+
+    <div class="vh-100 w-25 position-absolute start-0 top-0 d-flex align-items-center" style="background: #000000; background: linear-gradient(90deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.63) 60%, rgba(0, 0, 0, 0) 100%);">
+        <div class="position-absolute end-50" id="leftArrow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-caret-left" viewBox="0 0 16 16">
+                <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753"/>
+            </svg>
+            {% if prev is not None %}<a class="stretched-link" href="{{ url_root }}/{{ prev }}">{% endif %}
+        </div>
+    </div>
+
+    <div class="vh-100 w-25 position-absolute end-0 top-0 d-flex align-items-center" style="background: #000000; background: linear-gradient(270deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.63) 60%, rgba(0, 0, 0, 0) 100%);">
+        <div class="position-relative start-50" id="rightArrow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-caret-right" viewBox="0 0 16 16">
+                <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
+            </svg>
+            {% if next %}<a class="stretched-link" href="{{ url_root }}/{{ next }}">{% endif %}
+        </div>
+    </div>
+</body>
+</html>

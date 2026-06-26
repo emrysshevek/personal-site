@@ -20,13 +20,4 @@ $(document).ready(function(){
     })
 });
 
-$(document).on("scroll", function() {
-    $(".project").each(function(i, elem){
-      let bound = elem.getBoundingClientRect()
-      let img = $(elem).find(".project-img")
-      let p = $(elem).find(".project-text")
-      img.css("top", -bound.top)
-    })
-})
-
 
