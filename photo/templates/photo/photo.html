@@ -16,30 +16,8 @@
 </head>
 
 <body class="text-white container-fluid">
-    <img  class="img-fluid" style="max-width: 100%; max-height: 100%; margin: auto; display: block;" src={{ photo.image.url }}>
 
-    {% if show_prev %}
-        <div class="vh-100 w-25 position-absolute start-0 top-0 d-flex align-items-center" style="background: #000000; background: linear-gradient(90deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-">
-            <div class="position-relative" id="rightArrow" style="left: 25%">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-caret-left" viewBox="0 0 16 16">
-                    <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753"/>
-                </svg>
-                <a class="stretched-link" href="{{ url_root }}/{{ prev }}/"></a>
-            </div>
-        </div>
-    {% endif %}
-
-    {% if show_next %}
-        <div class="vh-100 w-25 position-absolute end-0 top-0 d-flex align-items-center" style="background: #000000; background: linear-gradient(270deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);">
-            <div class="position-relative" id="rightArrow" style="left: 75%">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-caret-right" viewBox="0 0 16 16">
-                    <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
-                </svg>
-                <a class="stretched-link" href="{{ url_root }}/{{ next }}/"></a>
-            </div>
-        </div>
-    {% endif %}
+    {% include 'photo/photo_modal.html'  %}
 
 
 </body>
