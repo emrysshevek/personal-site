@@ -2,15 +2,15 @@
 {% block title %}From Darkness - Photography{% endblock %}
 
 {% block content %}
+{% include 'photo/photo_modal.html' %}
+
 <div class="container-fluid">
     <div class="row" data-masonry='{"percentPosition": true }'>
         {% for photo in photos %}
-            <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                <div class="card">
-                    <a href="{% url 'photo:gallery_photo' photo.id %}">
-			            <img src="{{ photo.image.url }}" class="card-img-top">
-                    </a>
-                </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xxl-6 mb-4">
+                <button type="button" class="btn modal-btn m-0" onclick="handleModal({{ forloop.counter0 }}, {{ photos|length }})" data-bs-toggle="modal" data-bs-target="#photoModal" index="{{ forloop.counter0 }}">
+                    <img src="{{ photo.image.url }}" class="img-fluid">
+                </button>
             </div> 
         {% endfor %}
     </div>
