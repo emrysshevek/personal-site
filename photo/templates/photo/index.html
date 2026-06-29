@@ -25,6 +25,7 @@
 
   <div class="container-fluid">
     {% for project in projects %}
+    {% if project.photo_set.all|length > 0%}
     <div class="row mb-4">
         <div class="col">
             {% with photo=project.photo_set.all|random %}
@@ -45,6 +46,7 @@
             {% endwith %}
         </div>
     </div>
+    {% endif %}
     {% endfor %}
     <div class="row h-25"></div>
 
